@@ -1,4 +1,4 @@
-# osquery Naisdevice SQLs
+# osquery naisdevice SQLs
 
 ## Table of Services we want to check for with kolide/osquery
 | Kolide Check name	| Type		| Description | Linux Equivalents |
