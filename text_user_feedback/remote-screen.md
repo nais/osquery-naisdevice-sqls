@@ -9,3 +9,5 @@ naisdevice policy ([Do's & Don'ts](https://naisdevice-approval.nais.io/)) state 
 ## Required Action:
 1. To disable RDP/VNC `${program match}` simply stop it, and uninstall/remove it.
 2. Click "I fixed it. Check again", to confirm the issue is resolved - once it's removed.
+
+For more info please refer to the oracle that is the interwebs: `${program match}`
