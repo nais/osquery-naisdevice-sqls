@@ -1,13 +1,13 @@
 SELECT
 	*
 FROM
-	deb_packages
+	rpm_packages
 WHERE
 	name IN (
-		'openssh-server'
-		,'telnet-server'
-		,'vino'
+		'vnc-server'
 		,'x11vnc'
+		,'teamviewer'
+		,'x2go'
 		,'krfb'
 		,'tightvncserver'
 		,'tigervnc'
