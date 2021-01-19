@@ -1,22 +1,16 @@
 SELECT
-  e.path as file_path,
-  f.uid || case when f.uid = e.uid then ' = ' else ' != ' end || e.uid as uid_match,
-  f.gid || case when f.gid = e.gid then ' = ' else ' != ' end || e.gid as gid_match,
-  f.mode || case when regex_match(f.mode, e.mode, 0) != "" then ' = ' else ' != ' end || e.mode as mode_match
+  e.path,
+  u.username,
+  g.groupname,
+  e.recommended_mode,
+  case when regex_match(f.mode, e.mode, 0) != "" then 0 else 1 end AS mode_match
 FROM
   expected_files e
   JOIN file f USING(path)
+  JOIN users u ON e.uid = u.uid
+  JOIN groups g ON e.gid = g.gid
 WHERE
-  uid_match like '%!=%' or
-  gid_match like '%!=%' or
-  mode_match like '%!=%'
+  f.uid != e.uid OR
+  f.gid != e.gid OR
+  mode_match
 ;
-
-/*
-  Example output when wrong mode:
-  +-----------------+-----------+-----------+--------------------------+
-  | file_path       | uid_match | gid_match | mode_match               |
-  +-----------------+-----------+-----------+--------------------------+
-  | /etc/cron.allow | 0 = 0     | 0 = 0     | 0644 != 0[0-6][0-4][0-0] |
-  +-----------------+-----------+-----------+--------------------------+
-*/
