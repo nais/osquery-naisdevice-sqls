@@ -3,6 +3,7 @@ SELECT
   u.username,
   g.groupname,
   e.recommended_mode,
+  e.cis_recommendation,
   case when regex_match(f.mode, e.mode, 0) != "" then 0 else 1 end AS mode_match
 FROM
   expected_files e
