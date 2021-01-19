@@ -7,6 +7,6 @@ This also helps prevent your non-root users from accidentally introducing breaki
 
 ## Required Action
 The following files must have the minimum security permissions / correct group&owner IDs set:
-{{ range files }}
-- file `{{ name }}` has insecure permissions, to fix: `{{ command }}`
+{{ range violating\_files }}
+- file `{{ path }}` has insecure permissions, to fix: `chown {{ username }}:{{ groupname }} '{{ path }}'; chmod {{ recommended_mode }} '{{ path }}'`
 {{ end }}
