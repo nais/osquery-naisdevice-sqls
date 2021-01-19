@@ -7,5 +7,5 @@ WHERE (
   name = 'swayidle'
 AND
   swaylock_timeout_seconds_regex_match <= 600
-  and swaylock_before_sleep_regex_match = 'before-sleep swaylock'
+  AND swaylock_before_sleep_regex_match = 'before-sleep swaylock'
 );
