@@ -16,7 +16,7 @@ SELECT
 FROM
     xscreensaver_config
 WHERE
-    lock_enabled = 'true'
-AND
-    time(lock_timeout) <= time("00:10:00")
+    lock_enabled != 'true'
+OR
+    time(lock_timeout) > time("00:10:00")
 ;
