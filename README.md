@@ -31,5 +31,21 @@ In order to have access to all the tables Kolide provides, you need:
 
 With those requirements out of the way, to run queries with the kolide-added tables - adapt this command ([tips here](https://github.com/nais/osquery-naisdevice-sqls/#testing-queries-locally)) to your machine:
 ```
-sudo osqueryd -S --verbose --allow-unsafe --extension tables.ext
+[2021-01-29 13:56:46] 0 x10an14@christian-lenovo-laptop:~
+-> $ osqueryi <<< "select version, build_distro from osquery_info;"
++---------+--------------+
+| version | build_distro |
++---------+--------------+
+| 4.5.1   | centos7      |
++---------+--------------+
+[2021-01-29 13:58:12] 0 x10an14@christian-lenovo-laptop:~
+-> $ command -v osqueryi
+/home/x10an14/bin/osqueryi
+[2021-01-29 13:58:18] 0 x10an14@christian-lenovo-laptop:~
+-> $ cat $(which osqueryi)
+#!/usr/bin/env bash
+
+sudo /usr/local/kolide-k2/bin/osqueryd -S --allow-unsafe --extension ~/.local/share/k2/tables.ext
+[2021-01-29 13:58:20] 0 x10an14@christian-lenovo-laptop:~
+-> $
 ```
