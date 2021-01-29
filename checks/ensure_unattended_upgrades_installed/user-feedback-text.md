@@ -13,3 +13,6 @@ Further reading can be found at CIS Ubuntu 18.04 Benchmark v2.0.1, section 1.9.
 ## Required Action
 1. `sudo apt[-get] install unattended-upgrades`
 2. Click "I fixed it. Check again", to confirm the issue is resolved - once it's removed.
+
+## Special notice to Kolide
+This check requires osquery version 4.6+, the query fails in version 4.5.\*, but works with version 4.6+ of osquery.
