@@ -3,7 +3,7 @@ WITH unattended_startup_items  AS (
 		count(*) as item_count
 	FROM startup_items
 	WHERE
-		name LIKE '%unattended%'
+		name LIKE 'unattended-upgrades%'
 	AND (
 		status = 'enabled'
 		OR status = 'active'
