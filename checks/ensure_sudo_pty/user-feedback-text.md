@@ -9,6 +9,7 @@ Further reading can be found at CIS Ubuntu 18.04 Benchmark v2.0.1, section 1.3.
 
 ## Required Action
 1. `sudo visudo`.
+   (Tip: use `-E` between the two commands so as to open in your specified `$EDITOR`).
 2. Add the following to an empty line: `Defaults use_pty`.
 3. Save and exit.
 4. Remove all lines including the substring `!use_pty` from all files recursively in `/etc/sudoers*`.
