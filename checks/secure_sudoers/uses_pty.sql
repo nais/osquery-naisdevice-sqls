@@ -2,16 +2,16 @@ WITH
 	sudoers_items
 AS (
 	SELECT
-		count(*) AS item_count
+		COUNT(regex_match(rule_details, '(?:.+,)*!use_pty(?:,.*)*', 0)) as disallowed_pty_counts,
+		COUNT(SELECT * FROM sudoers WHERE rule_details = 'use_pty') as uses_pty_counts
 	FROM
 		sudoers
-	WHERE
-		COUNT(regex_match(cmdline, 'timeout (\d+) swaylock)', 1)
-		rule_details  'use_pty'
 )
 SELECT
 	*
 FROM
 	sudoers_items
 WHERE
-	item_count != 1;
+	uses_pty_counts != 1
+OR
+	disallowed_pty_counts != 0;
