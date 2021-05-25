@@ -16,11 +16,11 @@ FROM
 	processes p,
 	etc_protocols t
 WHERE
-	l.pid = p.pid 
+	l.pid = p.pid
+    AND l.net_namespace IN (SELECT * FROM main_network_namespace)
+    AND l.address NOT IN ('127.0.0.1', '::1')
 	AND (
-		l.net_namespace IN (SELECT * FROM main_network_namespace)
-		AND l.address NOT IN ('127.0.0.1', '::1')
-		AND l.port IN (5800, 5900)
+		l.port IN (5800, 5900)
 		OR p.name IN (
 			'directvnc'
 			,'krfb'
