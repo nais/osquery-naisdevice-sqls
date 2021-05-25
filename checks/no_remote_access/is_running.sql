@@ -12,7 +12,10 @@ FROM
 WHERE
 	l.pid = p.pid 
 	AND (
-		l.port IN (5800, 5900)
+		(
+			l.port IN (5800, 5900)
+			AND l.address NOT IN ('127.0.0.1', '::1')
+		)
 		OR p.name IN (
 			'directvnc'
 			,'krfb'
