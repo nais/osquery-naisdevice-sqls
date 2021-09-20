@@ -5,7 +5,13 @@ AS (
 		COUNT(*) as secured_sudo_logfile
 	FROM file
 	WHERE
-		path == (SELECT regex_match(rule_details, '^logfile="(.+)"$', 1) as details from sudoers where details IS NOT NULL)
+		path == (
+			SELECT
+				regex_match(rule_details, '^logfile="(.+)"$', 1) as details
+			FROM sudoers
+			WHERE
+				details IS NOT NULL
+		)
 	AND
 		uid == (SELECT uid FROM users WHERE username == 'syslog')
 	AND
@@ -39,11 +45,11 @@ FROM
 	log_files, log_outputs, log_output_restrictions, ensure_no_logging_disabled
 WHERE
 	NOT (
-		secured_sudo_logfile == 1
+			secured_sudo_logfile == 1
 		AND
-		log_output_counts == 1
+			log_output_counts == 1
 		AND
-		allowlisted_counts == 1
+			allowlisted_counts == 1
 		AND
-		log_disabled_counts == allowlisted_counts
+			log_disabled_counts == allowlisted_counts
 	);
