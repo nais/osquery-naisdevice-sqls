@@ -7,4 +7,7 @@ It is important to make sure that accounts that are not being used by regular us
 Further reading can be found at CIS Ubuntu 18.04 Benchmark v2.0.1, section 5.4.
 
 ## Required Action
-1. do the thing
+The following users must have their associated login shells set to `/usr/sbin/nologin` in order to be considered secure:
+{{ range user\_login\_shells }}
+- Run: `sudo chsh -s /usr/sbin/nologin {{ username }}`
+{{ end }}
