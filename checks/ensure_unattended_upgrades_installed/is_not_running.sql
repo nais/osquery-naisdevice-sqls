@@ -1,13 +1,20 @@
-WITH unattended_startup_items  AS (
+WITH
+	systemd_job
+AS (
 	SELECT
-		count(*) as item_count
-	FROM startup_items
+		COUNT(*) AS systemd_query_results
+	FROM
+		systemd_units
 	WHERE
-		name LIKE 'unattended-upgrades'
+		id == 'unattended-upgrades.service'
 	AND
-		status = 'enabled'
+		sub_state == 'running'
 	AND
-		path = '/etc/init.d/unattended-upgrades'
-
-)
-SELECT * FROM unattended_startup_items where item_count != 1;
+		active_state == 'active'
+) SELECT
+	*
+FROM
+	systemd_job
+WHERE NOT (
+	systemd_query_results == 1
+);
