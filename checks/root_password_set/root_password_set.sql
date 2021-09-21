@@ -1,17 +1,8 @@
-WITH
-	root_shell
-AS (
-	SELECT
-		shell
-	FROM users
-	WHERE 
-		uid = 0
-)
 SELECT
-	COUNT(*)
+	username, password_status
 FROM
 	shadow
-WHERE
-	username == 'root'
-AND
-	password_status != 'active';
+WHERE NOT (
+	password_status == 'active'
+) AND
+	username == 'root';
