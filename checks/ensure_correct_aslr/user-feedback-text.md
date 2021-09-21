@@ -6,6 +6,8 @@ Address space layout randomization (ASLR) is an exploit mitigation technique whi
 
 Randomly placing virtual memory regions will make it difficult to write memory page exploits as the memory placement will be consistently shifting.
 
+This addresses: CIS Ubuntu 18.04 Benchmark v2.0.1, section 1.6.2.
+
 ## Required Action
 Run the following commands in a terminal:
 ```
