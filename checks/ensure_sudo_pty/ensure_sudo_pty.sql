@@ -1,16 +1,8 @@
 WITH
-	ensure_no_use_pty_exceptions
+	ensure_use_pty_is_default
 AS (
 	SELECT
-		count(*) AS pty_exception_counts
-	FROM
-		sudoers
-	WHERE
-		rule_details LIKE '!use_pty%'
-), ensure_use_pty_is_default
-AS (
-    SELECT
-		COUNT(*) AS uses_pty_counts
+		COUNT(*) AS pty_is_default_for_all
 	FROM
 		sudoers
 	WHERE
@@ -21,8 +13,8 @@ AS (
 SELECT
 	*
 FROM
-	ensure_no_use_pty_exceptions, ensure_use_pty_is_default
-WHERE
-	uses_pty_counts != 1
-OR
-	pty_exception_counts != 0;
+	ensure_use_pty_is_default e, sudoers s
+WHERE NOT (
+	e.pty_is_default_for_all == 1
+) OR
+	s.rule_details LIKE '!use_pty';
