@@ -1,10 +1,9 @@
 WITH main_network_namespace AS (
-	SELECT net_namespace
+	SELECT
+		net_namespace AS host_namespace
 	FROM process_namespaces
 	WHERE pid = 1
-)
-
-SELECT
+) SELECT
 	t.alias as protocol,
 	l.port,
 	p.cmdline,
@@ -12,13 +11,13 @@ SELECT
 	p.name,
 	p.path as 'binary path'
 FROM
-	listening_ports l,
-	processes p,
-	etc_protocols t
+	listening_ports l
+		LEFT JOIN processes p ON l.pid == p.pid
+		LEFT JOIN etc_protocols t ON l.protocol == t.number,
+	main_network_namespace n
 WHERE
-	l.pid = p.pid
-    AND l.net_namespace IN (SELECT * FROM main_network_namespace)
-    AND l.address NOT IN ('127.0.0.1', '::1')
+	l.net_namespace == n.host_namespace
+	AND l.address NOT IN ('127.0.0.1', '::1')
 	AND (
 		l.port IN (5800, 5900)
 		OR p.name IN (
@@ -46,4 +45,4 @@ WHERE
 			,'xrdp'
 			,'xserver-xephyr'
 		)
-	) AND l.protocol = t.number;
+	);
