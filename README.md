@@ -16,6 +16,8 @@
 
 ## Testing queries locally
 
+__*None of the below works as of this writing (osquery version used by kolide: 5.8.2)*__
+
 If you have Kolide installed on your machine (which you probably have), you can run queries locally to test them!
 
 Adjust paths to `osqueryd` and `tables.ext` as necessary.
