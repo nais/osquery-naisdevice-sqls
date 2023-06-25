@@ -7,7 +7,12 @@ WITH
       users u
     where
       u.uid >= 1000
-      and u.uid < 60000
+      and not (
+	-- These sub-expressions just check if an account should be considered system-user
+        (shell = '/sbin/nologin' or shell = '/usr/sbin/nologin')
+	and (directory = '/var/empty' or directory = '/nonexistent')
+	and (username like 'nixbld%' or username = 'nobody')
+      )
   ),
   -- Start inspecting the gnome gsettings values
   user_gsettings_values as (
